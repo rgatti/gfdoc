@@ -5,7 +5,7 @@
 	</head>
 	<cfif isdefined("url.refresh")>
 	<body>
-		<p>Done reindexing.</p>
+		<p>Done reindexing. <a href="/">Click here to continue.</a></p>
 	</body>
 	<cfelse>
 	<frameset cols="210px,*">

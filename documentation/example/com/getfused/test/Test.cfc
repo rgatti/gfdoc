@@ -1,4 +1,4 @@
-<cfcomponent output="false" implements="ITest" hint="A sample Coldfusion Component">
+<cfcomponent output="false" implements="ITest" extends="AbstractTest" hint="A sample Coldfusion Component">
 
 	<cffunction name="init" returntype="Test" access="public" output="false">
 		<cfreturn this />
