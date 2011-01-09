@@ -3,6 +3,7 @@
 		this.name = getDirectoryFromPath(getCurrentTemplatePath());
 		this.sessionManagement = false;
 		this.clientManagement = false;
+		this.mappings = { "/example" = expandPath("/documentation/example") };
 	</cfscript>
 
 	<cffunction name="onApplicationStart" returntype="boolean" access="public" output="false">
@@ -21,7 +22,7 @@
 	<cffunction name="onRequestStart" returntype="boolean" access="public" output="false">
 		<!--- Refresh the application --->
 		<cfif isdefined("url.refresh")>
-			<cflock scope="application" timeout="3">
+			<cflock scope="application" timeout="300">
 				<cfif not onApplicationStart()>
 					<cfreturn false />
 				</cfif>

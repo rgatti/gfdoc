@@ -12,6 +12,6 @@ application.config.startPage = "readme.cfm";
 application.config.constructorName = "init";
 // Array of doc roots that contain cfc's
 application.config.docroots = arrayNew(1);
-// Path to the root where cfc's live
-application.config.docroots[1] = "documentation/example/com";
+// Name of the mapping to the root where cfc's live
+application.config.docroots[1] = "example";
 </cfscript>
