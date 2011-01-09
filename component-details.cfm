@@ -71,7 +71,11 @@
 		<p>
 			<strong>All Implemented Interfaces:</strong><br/>
 			<cfloop collection="#info.metadata.implements#" item="name">
-				<cfoutput><a href="/component-details.cfm?component=#urlEncodedFormat(name)#">#listLast(name, ".")#</a></cfoutput>
+				<cfif listlen(name, ".") eq 1>
+					<cfoutput><a href="/component-details.cfm?component=#urlEncodedFormat('#package#.#name#')#">#listLast(name, ".")#</a></cfoutput>
+				<cfelse>
+					<cfoutput><a href="/component-details.cfm?component=#urlEncodedFormat(name)#">#listLast(name, ".")#</a></cfoutput>
+				</cfif>
 			</cfloop>
 		</p>
 		</cfif>
