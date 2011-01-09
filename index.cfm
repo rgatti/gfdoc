@@ -3,6 +3,11 @@
 	<head>
 		<title><cfoutput>#application.config.title#</cfoutput></title>
 	</head>
+	<cfif isdefined("url.refresh")>
+	<body>
+		<p>Done reindexing.</p>
+	</body>
+	<cfelse>
 	<frameset cols="210px,*">
 		<frameset rows="250px,*">
 			<frame name="packages" src="/list-packages.cfm" />
@@ -12,4 +17,5 @@
 		<frame name="content" src="#application.config.startPage#" />
 		</cfoutput>
 	</frameset>
+	</cfif>
 </html>

@@ -73,7 +73,7 @@
 					<cfset row = row + 1 />
 				</cfloop>
 			<cfelse>
-				<cftrace text="no components found for #docroot#" />
+				<cftrace text="no components found for #expandPath('/#docroot#')#" />
 			</cfif>
 		</cfloop>
 	</cffunction>
