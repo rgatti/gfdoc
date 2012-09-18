@@ -15,6 +15,24 @@
 		<cfreturn this />
 	</cffunction>
 
+<!---
+
+roots = new struct
+
+for docroot in config.docroots
+	roots[docroot] = cfdirectory list
+
+for files in roots {
+	for f in files {
+
+	}
+}
+
+--->
+
+
+
+
 	<cffunction name="createCache" returntype="void" access="public" output="false" hint="Find all cfc's in the docroots and cache the results.">
 		<cfset var i = "" />
 		<cfset var row = 1 />
@@ -29,7 +47,6 @@
 		<!--- Build cache for each docroot --->
 		<cfloop from="1" to="#arraylen (instance.docroots)#" index="i">
 			<cfset docroot = instance.docroots[i] />
-			<cftrace text="indexing #docroot#" />
 
 			<!--- Recursively grab all cfc's --->
 			<cfdirectory action="list" directory="#expandPath('/#docroot#')#" recurse="true" filter="*.cfc" name="files" />
@@ -55,7 +72,7 @@
 						<!--- There was an error getting the metadata, create a custom metadata type for an error
 						and cache the exception instead --->
 						<cfcatch>
-							<cftrace text="error compiling metadata for #fullname# (docroot=#docroot#)" />
+							<!---<cftrace text="error compiling metadata for #fullname# (docroot=#docroot#)" />--->
 							<cfset metadata.type = "error" />
 							<cfset instance.cache.error[fullname] = duplicate(cfcatch) />
 						</cfcatch>
@@ -68,12 +85,12 @@
 					<cfset querySetCell(instance.cache.query, "initcall", fullname, row) />
 					<cfset querySetCell(instance.cache.query, "type", lcase(metadata.type), row) />
 					<cfset querySetCell(instance.cache.query, "path", directory, row) />
-					<cftrace text="adding #fullname# (type=#metadata.type#)" />
+					<!---<cftrace text="adding #fullname# (type=#metadata.type#)" />--->
 
 					<cfset row = row + 1 />
 				</cfloop>
 			<cfelse>
-				<cftrace text="no components found for #expandPath('/#docroot#')#" />
+				<!---<cftrace text="no components found for #expandPath('/#docroot#')#" />--->
 			</cfif>
 		</cfloop>
 	</cffunction>
@@ -103,16 +120,25 @@
 	<cffunction name="cacheDescendants" returntype="void" access="private" output="false" hint="Adds this component to all its super-type descendant list.">
 		<cfargument name="metadata" type="struct" required="true" hint="Metadata for a component." />
 		<cfset var parent = "" />
+		<cfset var parentName = "" />
 		<cfset var key = "" />
 		<!--- Loop over the implements and extends substructs --->
 		<cfloop list="implements,extends" index="key">
 			<cfif structKeyExists(arguments.metadata, key)>
 				<!--- For all implemented interfaces and extended componens add ourself to their descendant list --->
-				<cfloop list="#structKeyList(arguments.metadata[key])#" index="parent">
-					<cfparam name="instance.cache.descendants[parent]" default="" />
-					<cfset instance.cache.descendants[parent] =
-						listAppend(instance.cache.descendants[parent], arguments.metadata.fullname) />
-				</cfloop>
+				<cfif structKeyExists(arguments.metadata[key], "fullname")>
+					<cfset parentName = arguments.metadata[key].fullname />
+					<cfparam name="instance.cache.descendants[parentName]" default="" />
+					<cfset instance.cache.descendants[parentName] =
+						listAppend(instance.cache.descendants[parentName], arguments.metadata.fullname) />
+				<cfelse>
+					<cfloop collection="#arguments.metadata[key]#" item="parent">
+						<cfset parentName = arguments.metadata[key][parent].fullname />
+						<cfparam name="instance.cache.descendants[parentName]" default="" />
+						<cfset instance.cache.descendants[parentName] =
+							listAppend(instance.cache.descendants[parentName], arguments.metadata.fullname) />
+					</cfloop>
+				</cfif>
 			</cfif>
 		</cfloop>
 	</cffunction>

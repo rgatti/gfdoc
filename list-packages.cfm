@@ -8,8 +8,17 @@
 	<ul>
 	<cfset packages = application.doc.getPackages() />
 	<cfoutput query="packages">
-		<!--- Remove the docroot from the base of the package path --->
-		<li><a href="/list-components.cfm?package=#urlEncodedFormat(package)#" target="classes">#package#</a></li>
+		<cfset showPackage = true />
+		<cfloop array="#application.config.hide#" index="pattern">
+			<cfif reFind(pattern, package) neq 0>
+				<cfset showPackage = false />
+				<cfbreak />
+			</cfif>
+		</cfloop>
+		<cfif showPackage>
+			<!--- Remove the docroot from the base of the package path --->
+			<li><a href="/list-components.cfm?package=#urlEncodedFormat(package)#" target="classes">#package#</a></li>
+		</cfif>
 	</cfoutput>
 	</ul>
 </div>

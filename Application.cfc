@@ -1,14 +1,23 @@
 <cfcomponent output="false">
-	<cfscript>
-		this.name = getDirectoryFromPath(getCurrentTemplatePath());
-		this.sessionManagement = false;
-		this.clientManagement = false;
-		this.mappings = { "/example" = expandPath("/documentation/example") };
-	</cfscript>
+	<cfset this.name = "Coldfusion Documentation Tool" />
+	<cfset this.sessionManagement = false />
+	<cfset this.clientManagement = false />
+
+	<!--- This should be registered in the Coldfusion administrator. --->
+	<cfset this.mappings = {
+		"/gfplatform" = "C:/Users/rgatti/Development/Websites/gfplatform",
+		"/coldbox" = "C:/Users/rgatti/Development/Websites/gfplatform/frameworks/coldbox",
+		"/coldspring" = "C:/Users/rgatti/Development/Websites/gfplatform/frameworks/coldspring"
+	} />
 
 	<cffunction name="onApplicationStart" returntype="boolean" access="public" output="false">
 		<!--- Include the configuration --->
 		<cfinclude template="config.cfm" />
+
+		<!---
+		<cfdump var="#expandPath('/gfplatform')#" />
+		<cfdump var="#getComponentMetaData('gfplatform.cms.api.field.TextInput')#" expand="false" abort="true" />
+		--->
 
 		<!--- Create Doc utility and cache the doc roots --->
 		<cfset application.doc = createObject("component", "Doc").init(application.config.docroots) />

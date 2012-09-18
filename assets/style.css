@@ -1,26 +1,26 @@
 body {
 	margin:0;
 	padding:0;
-	font-size:90%;
 }
 a {
+	color: #4C6B87;
 	text-decoration:none;
 }
 a:visited {
-	color:#00a;
+	color:#4C6B87;
 }
 code {
 	font-family:monospace;
 }
 /*********************************************/
 #pageheader {
-	font-family:Helvetica,Arial,sans-serif;
-	font-size:18px;
-	font-variant:small-caps;
-	font-weight:bold;
+	font-size:16px;
 	border-bottom:1px solid #888;
 	padding-bottom:20px;
 	margin-bottom:20px;
+}
+#pageheader a {
+	color: #000;
 }
 #pageheader .links {
 	background:#DBE9F3 url('/assets/titleTableTop.jpg') repeat-x;
@@ -37,25 +37,25 @@ code {
 /*********************************************/
 .section {
 	padding-bottom:15px;
-	margin-bottom:20px;
-	margin:0 20px 0 20px;
+	margin:10px 20px 0 20px;
 }
 .section h1 {
 	margin-top:0;
+	font-size: 20px;
 }
 .section.hint {
 	margin-left:40px;
 }
 /*********************************************/
 #listing {
-	font-family:Helvetica,Arial,sans-serif;
+	font-family:Arial;
 	font-size:13px;
 	white-space:nowrap;
 }
 #listing h1, h2 {
 	padding:0;
 	font-size:14px;
-	font-weight:normal;
+	font-weight:bold;
 }
 #listing h2 {
 	padding-left:2px;
@@ -78,7 +78,7 @@ code {
 }
 /*********************************************/
 #details {
-	font-family:"Times New Roman";
+	font:12px/1.5em Tahoma,Verdana,Arial,Helvetica,sans-serif;
 }
 /*********************************************/
 .summary table, .detail table {
@@ -92,17 +92,20 @@ code {
 	white-space:nowrap;
 	padding:5px 0 5px 15px;
 	border:1px solid #888;
-	font-size:20px;
+	font-size:18px;
 	text-align:left;
 }
 .summary table td {
 	border:1px solid #888;
-	padding:5px;
+	padding:10px;
 }
 .summary .first {
 	vertical-align:top;
 	text-align:right;
 	width:140px;
+}
+.summary .row_odd td {
+	background-color: #eeeeef;
 }
 /*********************************************/
 .detail table td {

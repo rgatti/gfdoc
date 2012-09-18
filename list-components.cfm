@@ -22,7 +22,17 @@
 			<cfif type neq "all"><cfoutput><h2>#type#</h2></cfoutput></cfif>
 			<ul>
 			<cfoutput query="q">
-				<li><a href="/component-details.cfm?component=#urlEncodedFormat(package & '.' & component)#" target="content">#component#</a></li>
+				<cfset showPackage = true />
+				<cfloop array="#application.config.hide#" index="pattern">
+					<cfif reFind(pattern, package) neq 0>
+						<cfset showPackage = false />
+						<cfbreak />
+					</cfif>
+				</cfloop>
+
+				<cfif showPackage>
+					<li><a href="/component-details.cfm?component=#urlEncodedFormat(package & '.' & component)#" target="content" title="#package#">#component#</a></li>
+				</cfif>
 			</cfoutput>
 			</ul>
 		</div>

@@ -8,7 +8,7 @@
 		<p>Done reindexing. <a href="/">Click here to continue.</a></p>
 	</body>
 	<cfelse>
-	<frameset cols="210px,*">
+	<frameset cols="310px,*">
 		<frameset rows="250px,*">
 			<frame name="packages" src="/list-packages.cfm" />
 			<frame name="classes" src="/list-components.cfm" />

@@ -52,7 +52,7 @@
 			</cfloop>
 			<cfloop from="1" to="#listlen(hierarchy)#" index="i">
 				<cfset fullname = listgetat(hierarchy, i) />
-				<code>#repeatString("&nbsp;", (i - 1) * 7)#<cfif i neq 1><img src="/assets/inherit.gif" alt="extended by"/></cfif><cfif application.doc.hasComponentInfo(fullname) and fullname neq url.component><a href="/component-details.cfm?component=#urlEncodedFormat(fullname)#">#fullname#</a><cfelse>#fullname#</cfif></code><br/>
+				<code>#repeatString("&nbsp;", (i - 1) * 5)#<cfif i neq 1><img src="/assets/inherit.gif" alt="extended by"/></cfif><cfif application.doc.hasComponentInfo(fullname) and fullname neq url.component><a href="/component-details.cfm?component=#urlEncodedFormat(fullname)#">#fullname#</a><cfelse>#fullname#</cfif></code><br/>
 			</cfloop>
 		</cfif>
 
@@ -157,9 +157,11 @@
 				</tr>
 			</thead>
 			<tbody>
+				<cfset functionIndex = 0 />
 				<cfloop array="#sortedFunctions#" index="i">
+					<cfset functionIndex++ />
 					<cfset tag = info.metadata.functions[i] />
-					<tr>
+					<tr class="row_<cfif functionIndex mod 2 eq 0>even<cfelse>odd</cfif>">
 						<td class="first">
 							<cfif structKeyExists(tag, "access") and tag.access neq "public"><code>#tag.access#</code></cfif>
 							<cfif structKeyExists(tag, "returntype")>
@@ -272,7 +274,7 @@
 					<cfset tag = info.metadata.functions[i] />
 					<tr>
 						<td>
-							<a name="#tag.name#" />
+							<a name="#tag.name#">&nbsp;</a>
 							<h3>#tag.name#</h3>
 
 							<cfif structKeyExists(tag, "returntype")>
@@ -345,8 +347,6 @@
 		</table>
 	</div>
 	</cfif>
-
-	<!---<cfdump var="#info#">--->
 	</cfoutput>
 </div>
 </cf_layout>
